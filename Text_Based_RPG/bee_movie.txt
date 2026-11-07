@@ -1,0 +1,78 @@
+START_HP 10
+SCENE Barry B. Benson graduates. Every bee job is honey. Forever.
+HP 0
+LOOT 0
+ITEM none
+CHOICES 3
+LABEL Take the honey stirring job
+  SCENE You stir honey for the rest of your life. Speedrun complete.
+  HP 0
+  LOOT 2
+  ITEM Stirring Stick
+  CHOICES 0
+LABEL Fly out with the Pollen Jocks
+  SCENE You leave the hive for the first time. The world smells like flowers.
+  HP -2
+  LOOT 3
+  ITEM Pollen Pack
+  CHOICES 2
+  LABEL Chase the giant fuzzy ball
+    SCENE A tennis ball nearly flattens you. Totally worth it.
+    HP -6
+    LOOT 6
+    ITEM Tennis Fuzz
+    CHOICES 1
+    LABEL Ride a windshield home
+      SCENE You hit the windshield at 60 miles per hour.
+      HP -5
+      LOOT 1
+      ITEM none
+      CHOICES 0
+  LABEL Rest on a windowsill
+    SCENE A florist named Vanessa spares your life.
+    HP 1
+    LOOT 2
+    ITEM Thank You Note
+    CHOICES 2
+    LABEL Say thank you out loud
+      SCENE Bees are not supposed to talk to humans. You do it anyway.
+      HP 0
+      LOOT 3
+      ITEM none
+      CHOICES 2
+      LABEL Sue the human race
+        SCENE You win the lawsuit. Bees get their honey back.
+        HP -3
+        LOOT 6
+        ITEM Tiny Gavel
+        CHOICES 0
+      LABEL Visit a supermarket
+        SCENE Shelves of honey. Bees did all of the work.
+        HP -1
+        LOOT 2
+        ITEM Price Tag
+        CHOICES 1
+        LABEL Read the label
+          SCENE The label says made by bees. You start a revolution.
+          HP 0
+          LOOT 5
+          ITEM none
+          CHOICES 0
+    LABEL Fly home and keep quiet
+      SCENE Back at the hive. Nobody believes your story.
+      HP 0
+      LOOT 1
+      ITEM none
+      CHOICES 0
+LABEL Ask Adam for advice
+  SCENE Adam says the honey job is fine. Adam is wrong.
+  HP 0
+  LOOT 1
+  ITEM none
+  CHOICES 1
+  LABEL Ignore Adam and go back to bed
+    SCENE You sleep through the whole movie.
+    HP 0
+    LOOT 0
+    ITEM none
+    CHOICES 0

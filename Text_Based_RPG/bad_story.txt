@@ -1,0 +1,42 @@
+START_HP 10
+SCENE You wake up in a hive with too many doors.
+HP 0
+LOOT 0
+ITEM none
+CHOICES 2
+LABEL Walk to the first door
+  SCENE Nothing happens. It is a quiet ending.
+  HP 0
+  LOOT 1
+  ITEM none
+  CHOICES 0
+LABEL Walk to the hallway
+  SCENE The hallway has four doors.
+  HP 0
+  LOOT 0
+  ITEM none
+  CHOICES 4
+  LABEL Door one
+    SCENE Door one.
+    HP 0
+    LOOT 0
+    ITEM none
+    CHOICES 0
+  LABEL Door two
+    SCENE Door two.
+    HP 0
+    LOOT 0
+    ITEM none
+    CHOICES 0
+  LABEL Door three
+    SCENE Door three.
+    HP 0
+    LOOT 0
+    ITEM none
+    CHOICES 0
+  LABEL Door four
+    SCENE Door four.
+    HP 0
+    LOOT 0
+    ITEM none
+    CHOICES 0

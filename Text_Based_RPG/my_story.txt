@@ -1,0 +1,6 @@
+START_HP 10
+SCENE Replace this file with your own story.
+HP 0
+LOOT 0
+ITEM none
+CHOICES 0
