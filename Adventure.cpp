@@ -1,4 +1,4 @@
-#include "Text_Based_RPG/Adventure.h"
+#include "Adventure.h"
 #include <iostream>
 
 // ===================== GIVEN HELPERS (do not change) =====================

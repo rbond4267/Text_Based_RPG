@@ -1,10 +1,10 @@
 #pragma once
 #include <fstream>
 #include <string>
-#include "Text_Based_RPG/Moment.h"
-#include "Text_Based_RPG/Item.h"
-#include "Text_Based_RPG/List.h"
-#include "Text_Based_RPG/StoryTree.h"
+#include "Moment.h"
+#include "Item.h"
+#include "List.h"
+#include "StoryTree.h"
 
 // The game. It loads a story, plays it, and analyzes it.
 class Adventure {
