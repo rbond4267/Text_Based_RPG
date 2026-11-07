@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Node.h"
+#include "Text_Based_RPG/Node.h"
 
 // A simple linked list. GIVEN. You do not need to change this file.
 // The list OWNS every T* you give it. It deletes them when they leave.
