@@ -1,4 +1,4 @@
-  #pragma once
+#pragma once
 
 // One scene of the story and the doors leading out of it.
 //
@@ -18,30 +18,27 @@ public:
     static const int MAX_CHOICES = 3;
 
     Scene(T* data, int numChoices) : data_(data), choices_(nullptr), numChoices_(numChoices) {
-        // TODO 1:
-        // A scene with numChoices_ choices needs exactly numChoices_ slots.
-        // An ending (0 choices) needs no slots at all.
-        // Every slot must start out empty.
 
+        // Allocate and initialize the choice slots for a non-ending scene
         if (!isEnding()) {
             choices_ = new Scene<T>*[numChoices_];
-        }
 
-        for (int i = 0; i < numChoices_; ++i) {
-            choices_[i] = nullptr;
+            for (int i = 0; i < numChoices_; ++i) {
+                choices_[i] = nullptr;
+            }
         }
-
     }
 
     ~Scene() {
-        // TODO 2:
-        // Free everything this scene owns.
-        // Think about what it owns, and what each slot points to.
 
+        // Destroy all child scenes and release the memory owned by this scene
         for (int i = 0; i < numChoices_; ++i) {
             delete choices_[i];
         }
         delete[] choices_;
+
+        delete data_;
+
     }
 
     T* getData() const {
@@ -52,19 +49,29 @@ public:
         return numChoices_;
     }
 
-    // TODO 3: true if this scene is an ending.
     bool isEnding() const {
+        if (numChoices_ == 0)
+            return true;
+
         return false;
     }
 
-    // TODO 4: the scene behind slot index.
-    // Return nullptr if index is not a real slot.
     Scene<T>* getChoice(int index) const {
-        return nullptr;
+        if (index < 0 || index >= numChoices_)
+            return nullptr;
+
+        return choices_[index];
     }
 
-    // TODO 5: put next into slot index.
-    // Do nothing if index is not a real slot.
+
     void setChoice(int index, Scene<T>* next) {
+        if (index < 0 || index >= numChoices_)
+            return;
+
+        // Replace the child at this index, deleting the previously owned child first
+        if (next != choices_[index]) {
+            delete choices_[index];
+            choices_[index] = next;
+        }
     }
 };
