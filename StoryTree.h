@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include <algorithm>
 
 // The whole story. It knows the first scene and nothing else.
 //
@@ -12,22 +13,52 @@ class StoryTree {
 private:
     Scene<T>* root_;
 
-    // TODO 6: how many scenes are in the story that starts at scene?
-    // An empty story has 0 scenes.
     int countScenes(Scene<T>* scene) const {
-        return 0;
+        if (scene == nullptr)
+            return 0;
+
+        int count {1};
+
+        // Traverse all branches, summing each count while unwinding
+        count += countScenes(scene->getChoice(0));
+        count += countScenes(scene->getChoice(1));
+        count += countScenes(scene->getChoice(2));
+
+        return count;
     }
 
-    // TODO 7: how many endings are in the story that starts at scene?
     int countEndings(Scene<T>* scene) const {
-        return 0;
+        if (scene == nullptr)
+            return 0;
+
+        if (scene->isEnding())
+            return 1;
+
+        int count {0};
+
+        // Traverse all branches to find the endings, then recursively sum them
+        count += countEndings(scene->getChoice(0));
+        count += countEndings(scene->getChoice(1));
+        count += countEndings(scene->getChoice(2));
+
+        return count;
     }
 
-    // TODO 8: the most choices a player can make on the way to an ending,
-    // starting at scene. A single ending scene has height 0.
-    // An empty story has height -1.
     int height(Scene<T>* scene) const {
-        return -1;
+        if (scene == nullptr)
+            return -1;
+
+        if (scene->isEnding())
+            return 0;
+
+        // Traverse each subtree and store the height, then find the max height
+        int heightSubtree1 { height(scene->getChoice(0)) };
+        int heightSubtree2 { height(scene->getChoice(1)) };
+        int heightSubtree3 { height(scene->getChoice(2)) };
+
+        int max1 = std::max(heightSubtree1, heightSubtree2);
+        int max2 = std::max(heightSubtree3, max1);
+        return max2 + 1;
     }
 
 public:
@@ -50,9 +81,12 @@ public:
         return root_ == nullptr;
     }
 
-    // TODO 9: free every scene in the story and leave the tree empty.
-    // Hint: what does deleting a Scene already do for you?
     void clear() {
+        if (isEmpty())
+            return;
+
+        delete root_;
+        root_ = nullptr;
     }
 
     int countScenes() const {
