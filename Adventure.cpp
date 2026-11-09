@@ -1,5 +1,7 @@
 #include "Adventure.h"
 #include <iostream>
+#include <fstream>
+#include <memory>
 
 // ===================== GIVEN HELPERS (do not change) =====================
 
@@ -54,16 +56,30 @@ std::string Adventure::extendPath(const std::string& path, int choiceNumber) con
 
 // ===================== LOADING =====================
 
-// TODO 10: open the story file and build the tree.
-//   - If the file will not open, print exactly:
-//       Error: could not open file <fileName>
-//     and return false.
-//   - Read the START_HP line and save the number in startHp_.
-//     (std::stoi turns "10" into 10.)
-//   - Build the whole story with readScene. The first scene's label is "START".
-//   - If anything failed, return false. Otherwise give the story to tree_.
 bool Adventure::load(const std::string& fileName) {
+    std::ifstream file(fileName);
+
+    if (!file.is_open()) {
+        std::cout << "Error: could not open file " << fileName << std::endl;
+        return false;
+    }
+
+    // Read starting HP, build the first scene, and set it to the root of the tree
+    std::string hpValue;
+    if (readField(file, "Start_HP", hpValue)) {
+        startHp_ = std::stoi(hpValue);
+
+        Scene<Moment>* firstScene = readScene(file, "START");
+
+        if (firstScene == nullptr) {
+            return false;
+        }
+
+        tree_.setRoot(firstScene);
+        return true;
+    }
     return false;
+
 }
 
 // TODO 11: read ONE scene and everything below it. Return it.
