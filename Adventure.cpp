@@ -112,7 +112,7 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
 
     // Print error if there are too few or too many choices
     if (numChoices < 0 || numChoices > Scene<Moment>::MAX_CHOICES) {
-        std::cout << "Error: scene " << sceneName << " has " << numChoices << " choices. The limit is 3.\n";
+        std::cout << "Error: scene \"" << sceneName << "\" has " << numChoices << " choices. The limit is 3.\n";
         return nullptr;
     }
 
@@ -170,23 +170,6 @@ int Adventure::askChoice(int numChoices) {
     return 0;
 }
 
-// TODO 13: play the story once from the start.
-// Every time the player ENTERS a scene, in this order:
-//   1. Add its HP change to hp and its loot to loot.
-//   2. Print a line of 40 dashes, then the scene text.
-//   3. If the scene has an item:
-//        if the bag already has it, print "You already have: <item>"
-//        otherwise add it to the bag and print "You picked up: <item>"
-//   4. Print "HP: <hp>  Loot: <loot>" (two spaces before Loot).
-//   5. If hp is 0 or less, print "Your HP hit 0. GAME OVER." and stop.
-//      If the scene is an ending, print "THE END." and stop.
-//   6. Print each choice as "[1] <label>" and use askChoice.
-//      If askChoice returns 0, leave play right away.
-// When the game stops, print:
-//   Final HP: <hp>  Final loot: <loot>
-//   Inventory (<count> items):
-// and then print the bag.
-// The bag is a List<Item>. Start with HP = startHp_ and loot = 0.
 void Adventure::play() {
     Scene<Moment>* currentScene = tree_.getRoot();
     List<Item> inventory;
@@ -265,8 +248,8 @@ void Adventure::printStats() const {
     std::cout << "Longest playthrough: " << tree_.height() << " choices\n";
 }
 
-// TODO 15: print every ending in the story, one per line.
 void Adventure::printSpoilers() const {
+    printEndings(tree_.getRoot(), "");
 }
 
 // TODO 16: print every ending below scene.
@@ -276,6 +259,7 @@ void Adventure::printSpoilers() const {
 // If the very first scene is an ending, print "Path (start): <scene text>".
 // Endings print in order: choice 1 before choice 2 before choice 3.
 void Adventure::printEndings(Scene<Moment>* scene, const std::string& path) const {
+    
 }
 
 // TODO 17: the greedy advisor.
