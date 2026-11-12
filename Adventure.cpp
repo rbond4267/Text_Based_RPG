@@ -140,16 +140,37 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
 
 // ===================== PLAYING =====================
 
-// TODO 12: ask the player to pick a choice from 1 to numChoices.
-//   - Print "Your choice: " (no newline) and read a whole line.
-//   - If the line is not a valid number in range, print exactly:
-//       Please type a number from 1 to <numChoices>.
-//     and ask again.
-//   - If the input ends (getline fails), return 0.
 int Adventure::askChoice(int numChoices) {
+    std::string choice;
+    std::cout << "Your choice: ";
+
+    while (std::getline(std::cin, choice)) {
+        // Catch exception on std::stoi conversion
+        try {
+            std::size_t position;
+            int choiceInt = std::stoi(choice, &position);
+
+
+
+            if (choice.size() != position || (choiceInt < 1 || choiceInt > numChoices)) {
+                std::cout << "Please type a number from 1 to " << numChoices << ".\n";
+
+                std::cout << "Your choice: ";
+            }
+            else {
+                return choiceInt;
+            }
+        }
+        catch (const std::exception&) {
+            std::cout << "Please type a number from 1 to " << numChoices << ".\n";
+
+            std::cout << "Your choice: ";
+        }
+    }
     return 0;
 }
 
+void
 // TODO 13: play the story once from the start.
 // Every time the player ENTERS a scene, in this order:
 //   1. Add its HP change to hp and its loot to loot.
@@ -177,6 +198,9 @@ void Adventure::play() {
 //   Endings: <count>
 //   Longest playthrough: <height> choices
 void Adventure::printStats() const {
+    std::cout << "Scenes: " << tree_.countScenes() << "\n";
+    std::cout << "Endings: " << tree_.countEndings() << "\n";
+    std::cout << "Longest playthrough: " << tree_.height() << " choices\n";
 }
 
 // TODO 15: print every ending in the story, one per line.
