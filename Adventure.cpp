@@ -170,7 +170,6 @@ int Adventure::askChoice(int numChoices) {
     return 0;
 }
 
-void
 // TODO 13: play the story once from the start.
 // Every time the player ENTERS a scene, in this order:
 //   1. Add its HP change to hp and its loot to loot.
@@ -189,14 +188,63 @@ void
 // and then print the bag.
 // The bag is a List<Item>. Start with HP = startHp_ and loot = 0.
 void Adventure::play() {
+    Scene<Moment>* currentScene = tree_.getRoot();
+    List<Item> inventory;
+    int Hp = startHp_;
+    int loot = 0;
+
+    int choice;
+
+
+
+
+    do {
+        Moment* currentMoment = currentScene->getData();
+        Item* currentItem = new Item(currentMoment->getItem());
+
+        Hp += currentMoment->getHpChange();
+        loot += currentMoment->getLoot();
+
+        std::cout << "\n----------------------------------------\n";
+        std::cout << currentMoment->getText() << std::endl;
+
+        if (currentMoment->hasItem()) {
+            if (inventory.search(*currentItem)) {
+                std::cout << "You already have " << currentMoment->getItem() << "\n";
+            }
+            else {
+                inventory.addFront(currentItem);
+                std::cout << "You picked up: " << currentMoment->getItem() << "\n";
+            }
+        }
+
+        std::cout << "HP: "<< Hp << " Loot: "<< loot << "\n";
+
+
+        if (Hp <= 0) {
+            std::cout << "Your HP hit 0. GAME OVER.\n";
+            return;
+        }
+        if (currentScene->isEnding()) {
+            std::cout << "THE END.\n";
+            return;
+        }
+
+        for (int i = 0; i < currentScene->getNumChoices(); ++i) {
+            Scene<Moment>* nextScene = currentScene->getChoice(i);
+            Moment* nextMoment = nextScene->getData();
+
+            std::cout << "[" << i + 1 << "] " << nextMoment->getLabel() << "\n";
+        }
+
+        choice = askChoice(currentScene->getNumChoices()) + 1;
+        currentScene = currentScene->getChoice(choice);
+    }
+    while (choice != 0);
 }
 
 // ===================== ANALYZING =====================
 
-// TODO 14: print exactly three lines:
-//   Scenes: <count>
-//   Endings: <count>
-//   Longest playthrough: <height> choices
 void Adventure::printStats() const {
     std::cout << "Scenes: " << tree_.countScenes() << "\n";
     std::cout << "Endings: " << tree_.countEndings() << "\n";
