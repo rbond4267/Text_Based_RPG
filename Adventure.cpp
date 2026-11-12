@@ -65,9 +65,9 @@ bool Adventure::load(const std::string& fileName) {
     }
 
     // Read starting HP, build the first scene, and set it to the root of the tree
-    std::string hpValue;
-    if (readField(file, "Start_HP", hpValue)) {
-        startHp_ = std::stoi(hpValue);
+    std::string startHpValue;
+    if (readField(file, "Start_HP", startHpValue)) {
+        startHp_ = std::stoi(startHpValue);
 
         Scene<Moment>* firstScene = readScene(file, "START");
 
@@ -82,16 +82,60 @@ bool Adventure::load(const std::string& fileName) {
 
 }
 
-// TODO 11: read ONE scene and everything below it. Return it.
-//   - Read SCENE, HP, LOOT, ITEM, and CHOICES with readField, in that order.
-//   - If CHOICES is below 0 or above Scene<Moment>::MAX_CHOICES, print exactly:
-//       Error: scene "<scene text>" has <n> choices. The limit is 3.
-//     and return nullptr.
-//   - Each choice is a LABEL line followed by a whole scene.
-//   - If anything goes wrong at any depth, return nullptr
-//     and make sure nothing you already built is leaked.
+//   Read SCENE, HP, LOOT, ITEM, and CHOICES and create new scenes based on the moment information.
 Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label) {
-    return nullptr;
+    std::string sceneName, hpValue, loot, itemName, choices, nextSceneName;
+
+    if (!readField(in, "SCENE",sceneName)) {
+        return nullptr;
+    }
+
+    if (!readField(in, "HP",hpValue)) {
+        return nullptr;
+    }
+
+    if (!readField(in, "LOOT", loot)) {
+        return nullptr;
+    }
+
+    if (!readField(in, "ITEM",itemName)) {
+        return nullptr;
+    }
+
+    if (!readField(in, "CHOICES",choices)) {
+        return nullptr;
+    }
+
+    int numChoices = std::stoi(choices);
+    int hpVal = std::stoi(hpValue);
+    int lootVal = std::stoi(loot);
+
+    // Print error if there are too few or too many choices
+    if (numChoices < 0 || numChoices > Scene<Moment>::MAX_CHOICES) {
+        std::cout << "Error: scene " << sceneName << " has " << numChoices << " choices. The limit is 3.\n";
+        return nullptr;
+    }
+
+    Moment* currentMoment = new Moment(sceneName, label , hpVal, lootVal, itemName);
+    Scene<Moment>* currentScene = new Scene<Moment>(currentMoment, numChoices);
+
+    // Check if the next scene exists, if so, recursively reads and attaches the next scene
+    for (int i = 0; i < numChoices; i++) {
+
+        if (!readField(in, "LABEL", nextSceneName)) {
+            delete currentScene;
+            return nullptr;
+        }
+
+        Scene <Moment>* nextScene = readScene(in, nextSceneName);
+
+        if (nextScene == nullptr) {
+            delete currentScene;
+            return nullptr;
+        }
+        currentScene->setChoice(i, nextScene);
+    }
+    return currentScene;
 }
 
 // ===================== PLAYING =====================
