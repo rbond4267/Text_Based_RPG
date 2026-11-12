@@ -192,25 +192,24 @@ void Adventure::play() {
     List<Item> inventory;
     int Hp = startHp_;
     int loot = 0;
-
     int choice;
-
-
-
-
-    do {
+    
+    // The while loop accesses the current scene's moment data, print the scene data, then gets user's choice.
+    while (true) {
         Moment* currentMoment = currentScene->getData();
-        Item* currentItem = new Item(currentMoment->getItem());
-
+        
         Hp += currentMoment->getHpChange();
         loot += currentMoment->getLoot();
 
         std::cout << "\n----------------------------------------\n";
         std::cout << currentMoment->getText() << std::endl;
 
+        // Add item to the list if the item has not been picked up already.
         if (currentMoment->hasItem()) {
+            Item* currentItem = new Item(currentMoment->getItem());
             if (inventory.search(*currentItem)) {
-                std::cout << "You already have " << currentMoment->getItem() << "\n";
+                std::cout << "You already have: " << currentMoment->getItem() << "\n";
+                delete currentItem;
             }
             else {
                 inventory.addFront(currentItem);
@@ -218,18 +217,25 @@ void Adventure::play() {
             }
         }
 
-        std::cout << "HP: "<< Hp << " Loot: "<< loot << "\n";
+        std::cout << "HP: "<< Hp << "  Loot: " << loot << "\n";
 
-
+        // End the game if the player dies or an ending is reached.
         if (Hp <= 0) {
             std::cout << "Your HP hit 0. GAME OVER.\n";
+            std::cout << "Final HP: " << Hp << "  Final loot: " << loot << "\n";
+            std::cout << "Inventory (" << inventory.size() << " items):\n";
+            inventory.print();
             return;
         }
         if (currentScene->isEnding()) {
             std::cout << "THE END.\n";
+            std::cout << "Final HP: " << Hp << "  Final loot: " << loot << "\n";
+            std::cout << "Inventory (" << inventory.size() << " items):\n";
+            inventory.print();
             return;
         }
 
+        // Print the available choices with corresponding labels for a given scene.
         for (int i = 0; i < currentScene->getNumChoices(); ++i) {
             Scene<Moment>* nextScene = currentScene->getChoice(i);
             Moment* nextMoment = nextScene->getData();
@@ -237,10 +243,18 @@ void Adventure::play() {
             std::cout << "[" << i + 1 << "] " << nextMoment->getLabel() << "\n";
         }
 
-        choice = askChoice(currentScene->getNumChoices()) + 1;
-        currentScene = currentScene->getChoice(choice);
+        choice = askChoice(currentScene->getNumChoices());
+        
+        if (choice == 0)
+        {
+            std::cout << "Final HP: " << Hp << "  Final loot: " << loot << "\n";
+            std::cout << "Inventory (" << inventory.size() << " items):\n";
+            inventory.print();
+            return;
+        }
+        
+        currentScene = currentScene->getChoice(choice - 1);
     }
-    while (choice != 0);
 }
 
 // ===================== ANALYZING =====================
