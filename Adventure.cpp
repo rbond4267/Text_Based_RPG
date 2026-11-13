@@ -333,6 +333,9 @@ void Adventure::greedyRun() const {
 //   - Put the path of the best run into bestPath.
 //   - Must be recursive and look at every choice.
 int Adventure::bestLoot(Scene<Moment>* scene, int hp, const std::string& path, std::string& bestPath) const {
+    
+    
+    
     return -1;
 }
 
@@ -346,4 +349,20 @@ int Adventure::bestLoot(Scene<Moment>* scene, int hp, const std::string& path, s
 //   Optimal advisor
 //     Result: no path survives this story
 void Adventure::optimalRun() const {
+    Scene<Moment>* currentScene {tree_.getRoot()};
+    int hp {startHp_};
+    std::string path {""};
+    std::string bestPath {""};
+    int totalBestLoot {bestLoot(currentScene, hp, path, bestPath)};
+    
+    if (totalBestLoot == -1) {
+        std::cout << "  Optimal advisor\n"
+                  << "    Result: no path survives this story" << std::endl;
+    }
+    else {
+        std::cout << "  Optimal advisor\n" 
+                  << "    Path: " << bestPath << "\n"
+                  << "    Loot: " << totalBestLoot << "\n"
+                  << "    Result: reached an ending" << std::endl;
+    }
 }
