@@ -15,97 +15,7 @@ LABEL To be
     HP -5
     LOOT 3
     ITEM Rocks
-    CHOICES 2
-    LABEL Walk up the hill to the shining light on the pitch-black ceiling
-        SCENE You reach the top of the hill, the trees below look twisted and barren.
-        HP 0
-        LOOT 2
-        ITEM none
-        CHOICES 2 
-        LABEL Look into the light
-            SCENE A brilliant hand of gold reaches down from the light on the ceiling, belonging to the one from right-side up world. He calls your name. 
-            HP 0
-            LOOT 1
-            ITEM none
-            CHOICES 1
-            LABEL You want to take his hand. 
-                SCENE He pulls you up through the ceiling into the right-side up world, filling you with peace as you realize he was the one who drew you to him
-                HP 1000000
-                LOOT 0
-                ITEM Eternal life
-                CHOICES 0            
-        LABEL Go back down the other path, into the darkness.
-            SCENE You have no idea what you rejected, and you don't care.
-            HP -2
-            LOOT 13
-            ITEM Dead branches
-            CHOICES 3
-            LABEL Use the branches to make a fire
-                SCENE You take the rocks and branches but every time the spark catches, it's immediately snuffed out.
-                HP 0
-                LOOT 0
-                ITEM Charcoal
-                CHOICES 2
-                LABEL Accept that your world is darkness now.
-                    SCENE If only you had come to the light...
-                    HP -4
-                    LOOT 2
-                    ITEM Dispair
-                    CHOICES 0
-                LABEL Go back up the hill 
-                    SCENE Halfway up, you see the man from the right-side up world with feet of bronze and eyes of burning fire. "What do you have to say for yourself?" he demands.
-                    HP 0
-                    LOOT 3
-                    ITEM none
-                    CHOICES 2
-                    LABEL "I am a good person."
-                        SCENE "I don't share my glory with another," He declares.
-                        HP -8
-                        LOOT 0
-                        ITEM none
-                        CHOICES 0
-                    LABEL "I am not a good person"
-                        SCENE "My grace is sufficient for you, for my power is made perfect in weakness," He declares.
-                        HP 0
-                        LOOT 7
-                        ITEM Grace
-                        CHOICES 1
-                        LABEL Run to him
-                            SCENE He holds you in his arms as you weep. "Follow me," he commands.
-                            HP 1000000
-                            LOOT 0
-                            ITEM Eternal Life
-                            CHOICES 0
-            LABEL Cross the river.
-                SCENE You nearly drown in the crossing.       
-                HP -2
-                LOOT 1
-                ITEM Fish
-                CHOICES 2
-                LABEL Go down the path of thorns
-                    SCENE They were too sharp...
-                    HP -1
-                    LOOT 0
-                    ITEM none
-                    CHOICES 0
-                LABEL Go down the path of stinging scorpions
-                    SCENE They swarm around you...
-                    HP -2
-                    LOOT 1
-                    ITEM none
-                    CHOICES 0
-            LABEL Throw the rocks in the air 
-                SCENE You try building a shelter with mud instead. Your shelter slowly melts into the dirt
-                HP 0
-                LOOT 0
-                ITEM Mud 
-                CHOICES 1
-                LABEL Try and find the rocks you threw
-                    SCENE You find them again, but the wolves have found them first...
-                    HP -3
-                    LOOT 2
-                    ITEM none
-                    CHOICES 0                                                                                       
+    CHOICES 2                                                                      
     LABEL Find the people who tried to kill you
         SCENE You tread further into darkness, so utterly dark, you cannot see your hands in front of you.
         HP -1
@@ -130,15 +40,104 @@ LABEL To be
             LOOT 3
             ITEM none
             CHOICES 0
-        
+    LABEL Walk up the hill to the shining light on the pitch-black ceiling
+            SCENE You reach the top of the hill, the trees below look twisted and barren.
+            HP 0
+            LOOT 2
+            ITEM none
+            CHOICES 2           
+            LABEL Go back down the other path, into the darkness.
+                SCENE You have no idea what you rejected, and you don't care.
+                HP -2
+                LOOT 3
+                ITEM Dead branches
+                CHOICES 3
+                LABEL Use the branches to make a fire
+                    SCENE You take the rocks and branches but every time the spark catches, it's immediately snuffed out.
+                    HP 0
+                    LOOT 0
+                    ITEM Charcoal
+                    CHOICES 2
+                    LABEL Accept that your world is darkness now.
+                        SCENE If only you had come to the light...
+                        HP -4
+                        LOOT 2
+                        ITEM Dispair
+                        CHOICES 0
+                    LABEL Go back up the hill 
+                        SCENE Halfway up, you see the man from the right-side up world with feet of bronze and eyes of burning fire. "What do you have to say for yourself?" he demands.
+                        HP 0
+                        LOOT 3
+                        ITEM none
+                        CHOICES 2
+                        LABEL "I am a good person."
+                            SCENE "I don't share my glory with another," He declares.
+                            HP -8
+                            LOOT 0
+                            ITEM none
+                            CHOICES 0
+                        LABEL "I am not a good person"
+                            SCENE "My grace is sufficient for you, for my power is made perfect in weakness," He declares.
+                            HP 0
+                            LOOT 2
+                            ITEM Grace
+                            CHOICES 1
+                            LABEL Run to him
+                                SCENE He holds you in his arms as you weep. "Follow me," he commands.
+                                HP 1000000
+                                LOOT -10
+                                ITEM Eternal Life
+                                CHOICES 0
+                LABEL Cross the river.
+                    SCENE You nearly drown in the crossing.       
+                    HP -2
+                    LOOT 1
+                    ITEM Fish
+                    CHOICES 2
+                    LABEL Go down the path of thorns
+                        SCENE They were too sharp...
+                        HP -1
+                        LOOT 0
+                        ITEM none
+                        CHOICES 0
+                    LABEL Go down the path of stinging scorpions
+                        SCENE They swarm around you...
+                        HP -2
+                        LOOT 1
+                        ITEM none
+                        CHOICES 0
+                LABEL Throw the rocks in the air 
+                    SCENE You try building a shelter with mud instead. Your shelter slowly melts into the dirt
+                    HP 0
+                    LOOT 0
+                    ITEM Mud 
+                    CHOICES 1
+                    LABEL Try and find the rocks you threw
+                        SCENE You find them again, but the wolves have found them first...
+                        HP -3
+                        LOOT 2
+                        ITEM none
+                        CHOICES 0
+            LABEL Look into the light
+                SCENE A brilliant hand of gold reaches down from the light on the ceiling, belonging to the one from right-side up world. He calls your name. 
+                HP 0
+                LOOT 1
+                ITEM none
+                CHOICES 1
+                    LABEL You want to take his hand. 
+                    SCENE He pulls you up through the ceiling into the right-side up world, filling you with peace as you realize he was the one who drew you to him
+                    HP 1000000
+                    LOOT 100
+                    ITEM Eternal life
+                    CHOICES 0                               
   LABEL Take arms
     SCENE You opposed the arrows, but they pierced you. 
     HP -9
     LOOT 4
     ITEM Broken arrows
     CHOICES 2
-    LABEL Find cover by a log by the river.
-        SCENE A flood speeds down the river bank.
+    LABEL Find cover in a log by the river.
+        SCENE A flood speeds down the river bank, sweeping the log away with it...
         HP -8
         LOOT 1
         ITEM none

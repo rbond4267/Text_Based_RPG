@@ -174,7 +174,7 @@ int Adventure::askChoice(int numChoices) {
 
             if (choice.size() != position || (choiceInt < 1 || choiceInt > numChoices)) {
                 
-                if (choiceInt == 1) {
+                if (numChoices == 1) {
                     std::cout << "Please type the number 1.\n";
                     
                     std::cout << "Your choice: ";
