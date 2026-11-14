@@ -13,8 +13,8 @@ LABEL To be
   LABEL Take cover from the slings and arrows flying toward you
     SCENE You narrowly escape, you need to find a way out.
     HP -5
-    Loot 3
-    Item Rocks
+    LOOT 3
+    ITEM Rocks
     CHOICES 2
     LABEL Walk up the hill to the shining light on the pitch-black ceiling
         SCENE You reach the top of the hill, overlooking trees, they look twisted and barren now that you can see in the light. .
@@ -53,7 +53,7 @@ LABEL To be
                     ITEM Dispair
                     CHOICES 0
                 LABEL Go back up the hill 
-                    SCENE Half way up, you see the man from the right-side up world with feet of bronze, hair like freshly fallen snow, and eyes of burning fire. "What do you have to say for yourself," he demands.
+                    SCENE Halfway up, you see the man from the right-side up world with feet of bronze, hair like freshly fallen snow, and eyes of burning fire. "What do you have to say for yourself," he demands.
                     HP 0
                     LOOT 3
                     ITEM none
@@ -123,19 +123,19 @@ LABEL To be
             ITEM none
             CHOICES 0         
   LABEL Take arms against the sea of troubles and fight the arrows.
-    Scene You opposed the arrows, but they pierced you. 
+    SCENE You opposed the arrows, but they pierced you. 
     HP -9
     LOOT 4
     ITEM Arrow
     CHOICES 2
     LABEL Find cover by a log by the river.
-        Scene You hear a rumble and turn to see a wave of water headed toward your direction. You can't outrun it.
+        SCENE You hear a rumble and turn to see a wave of water headed toward your direction. You can't outrun it.
         HP -8
         LOOT 1
         ITEM none
         CHOICES 0
     LABEL Use the arrows to signal for help
-        Scene: You've just become the easiest target, one arrow rings out...
+        SCENE: You've just become the easiest target, one arrow rings out...
         HP -3
         LOOT 0
         ITEM none
@@ -143,6 +143,6 @@ LABEL To be
 LABEL Not To Be
  SCENE And so you've chosen death, then.
  HP -10
- Loot 0
+ LOOT 0
  ITEM none
- Choices 0
+ CHOICES 0
