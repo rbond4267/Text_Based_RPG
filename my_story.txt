@@ -1,6 +1,148 @@
 START_HP 10
-SCENE Replace this file with your own story.
+SCENE You have landed in upside-down world. Nothing here makes sense
 HP 0
 LOOT 0
 ITEM none
-CHOICES 0
+CHOICES 2
+LABEL To be
+  SCENE That is the question, yet you answered.
+  HP 0
+  LOOT 1
+  ITEM Hope
+  CHOICES 2
+  LABEL Take cover from the slings and arrows flying toward you
+    SCENE You narrowly escape, you need to find a way out.
+    HP -5
+    Loot 3
+    Item Rocks
+    CHOICES 2
+    LABEL Walk up the hill to the shining light on the pitch-black ceiling
+        SCENE You reach the top of the hill, overlooking trees, they look twisted and barren now that you can see in the light. .
+        HP 0
+        LOOT 2
+        ITEM none
+        CHOICES 2 
+        LABEL Look into the light
+            SCENE A brilliant hand of gold reaches down from the light on the ceiling, belonging to the one from right-side up world.
+            HP 0
+            LOOT 1
+            ITEM none
+            CHOICES 1
+            LABEL He calls your name. You want to take his hand. 
+                SCENE He pulls you up through the ceiling into the right-side up world, filling you with peace as you realize he was the one who drew you to him
+                HP 1000000
+                LOOT 0
+                ITEM Eternal life
+                CHOICES 0            
+        LABEL Go back down the path, into the darkness.
+            SCENE You have no idea what you rejected, and you don't care.
+            HP -2
+            LOOT 13
+            ITEM Dead branches
+            CHOICES 3
+            LABEL Use the branches to make a fire
+                SCENE You take the rocks and branches but every time the spark catches, it's immediately snuffed out.
+                HP 0
+                LOOT 0
+                ITEM Charcoal
+                CHOICES 2
+                LABEL Accept that your world is only ever darkness now.
+                    SCENE If only you had seen who you really are in the light...
+                    HP -4
+                    LOOT 2
+                    ITEM Dispair
+                    CHOICES 0
+                LABEL Go back up the hill 
+                    SCENE Half way up, you see the man from the right-side up world with feet of bronze, hair like freshly fallen snow, and eyes of burning fire. "What do you have to say for yourself," he demands.
+                    HP 0
+                    LOOT 3
+                    ITEM none
+                    Choices 2
+                    LABEL "I am a good person."
+                        SCENE "I don't share my glory with another," He declares.
+                        HP -8
+                        LOOT 0
+                        ITEM none
+                        CHOICES 0
+                    LABEL "I am not a good person"
+                        SCENE "My grace is sufficient for you, for my power is made perfect in weakness," He declares.
+                        HP 0
+                        LOOT 7
+                        ITEM Grace
+                        CHOICES 1
+                        LABEL Run to him
+                            SCENE He holds you in his arms as you weep. "Follow Me," he commands.
+                            HP 1000000
+                            LOOT 0
+                            ITEM Eternal Life
+                            CHOICES 0
+            LABEL Cross the river.
+                SCENE You nearly drown in the crossing.       
+                HP -2
+                LOOT 1
+                Item Fish
+                CHOICES 2
+                LABEL Go down the path of thorns
+                    SCENE They were too sharp...
+                    HP -1
+                    Item none
+                    CHOICES 0
+                LABEL Go down the path of stinging scorpions
+                    SCENE You were not given the authority to tread on them...
+                    HP -2
+                    Item none
+                    CHOICES 0
+            LABEL Throw the rocks in the air 
+                SCENE You try building a shelter with mud instead. Your shelter slowly melts into the dirt
+                HP 0
+                LOOT 0
+                Item Mud 
+                CHOICES 1
+                LABEL Try and find the rocks you threw
+                    SCENE You find them again, but the wolves have found them first...
+                    HP -3
+                    LOOT 2
+                    Item none
+                    CHOICES 0                                                                                       
+    LABEL Find the people who tried to kill you
+        SCENE You tread further into darkness, so utterly dark, you cannot see your hands in front of you.
+        HP -1
+        LOOT 8
+        ITEM none
+        CHOICES 2
+        LABEL Follow the cackling voices
+            SCENE They find you before you find them
+            HP -5
+            LOOT 2
+            Item none
+            CHOICES 0
+        LABEL Feel your way through the darkness
+            SCENE You hear growling behind you and a sharp pain in your legs and arms...
+            HP -4
+            LOOT 3
+            ITEM none
+            CHOICES 0         
+  LABEL Take arms against the sea of troubles and fight the arrows.
+    Scene You opposed the arrows, but they pierced you. 
+    HP -9
+    LOOT 4
+    ITEM Arrow
+    CHOICES 2
+    LABEL Find cover by a log by the river.
+        Scene You hear a rumble and turn to see a wave of water headed toward your direction. You can't outrun it.
+        HP -8
+        LOOT 1
+        ITEM none
+        CHOICES 0
+    LABEL Use the arrows to signal for help
+        Scene: You've just become the easiest target, one arrow rings out...
+        HP -3
+        LOOT 0
+        ITEM none
+        CHOICES 0        
+LABEL Not To Be
+ SCENE And so you've chosen death, then.
+ HP -10
+ Loot 0
+ ITEM none
+ Choices 0

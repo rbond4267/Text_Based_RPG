@@ -22,7 +22,6 @@ int main(int argc, char* argv[]) {
     if (!file.is_open()) {
         std::cout << "Error: could not open file " << argv[1] << std::endl;
         return 1;
-    }
 
     std::string line;
     while (std::getline(file, line)) {
