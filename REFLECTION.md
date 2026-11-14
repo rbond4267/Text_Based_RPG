@@ -1,9 +1,12 @@
-1. 
-TODO 1: I implemented the constructor of Scene() which dynamically allocates ands initializes choices for a 
-non-ending scene. O(1) *NOTE* n represents the number of choices (though num choices is capped at 3, which is still technically O(1)).
+1. For every function you wrote (TODO 1 to 19), explain in your own words what it does and
+   give its time complexity in terms of n, the number of scenes. One short paragraph each.
 
-TODO 2: I implemented the destructor of Scene which destroys each child scene, starting with the pointers, then the array of choices, 
-then the data object owned by the scene. O(n).
+TODO 1: I implemented the constructor of Scene() which dynamically allocates ands initializes choices for a 
+non-ending scene. O(1) *NOTE* n represents the number of choices (though num choices is capped at 3, which is still 
+technically O(1)).
+
+TODO 2: I implemented the destructor of Scene which destroys each child scene, starting with the pointers, then the 
+array of choices, then the data object owned by the scene. O(n).
 
 TODO 3: I implemented isEnding in Scene.h which checks the number of children, if there are no children, return true;
 it is a leaf (ending). O(1).
@@ -20,8 +23,8 @@ TODO 6: I implemented countScenes() in StoryTree.h which recursively sums all th
 TODO 7: I implemented countEndings() in StoryTree.h which recursively sums all the leaf (ending) scenes in the tree. 
 O(n).
 
-TODO 8: I implemented height in StoryTree.h which recursively stores the height for each subtree of the story, then finds
-the maximum height for each possible subtree (at most 3 subtrees). O(n)
+TODO 8: I implemented height in StoryTree.h which recursively stores the height for each subtree of the story, then 
+finds the maximum height for each possible subtree (at most 3 subtrees). O(n)
 
 TODO 9:I implemented clear() in StoryTree.h which deletes the entire tree by deleting the root, then setting it to 
 null ptr to avoid memory leaks. O(n).
@@ -56,9 +59,19 @@ ending. O(n)
 TODO 19: I implemented optimalRun() which acts as a wrapper for bestLoot and prints the path saved and integer returned
 by bestLoot(). O(n).
 
-2. The scene dynamically allocates choices_ to size numChoices_ because the number of given choices for a scene is not 
-known until runtime. Hardcoding numChoices to exactly 3 everytime would force each scene to allocate three choices instead 
-of the actual number of choices held by a scene. An ending has nullptr choices_ because an ending doesn't have any
-valid choices and therefore ends the story.
+2. Why does each scene allocate exactly numChoices slots instead of declaring Scene<T>*
+   choices[3]? What does an ending hold in choices_, and why?
 
+The scene dynamically allocates choices_ to size numChoices_ because the number of given choices for a scene is not 
+known until runtime. Hardcoding numChoices to exactly 3 everytime would force each scene to allocate three choices 
+instead of the actual number of choices held by a scene. An ending has nullptr choices_ because an ending doesn't have
+any valid choices and therefore ends the story.
+
+3. Walk through your Scene destructor. What gets deleted, and in what order? What would
+   go wrong if choices_ were deleted first?
+
+First, each child choice is deleted, then the array is deleted, then the data owned by the scene is deleted. If the
+choices_ array was deleted first, it would cause the children scenes to become unreachable through choices_[i]. 
+Accessing choices_[i] after deleting the array would result in undefined behavior. Reversing the order of delete[] 
+choices_ and delete choices_[i] leaks memory.
 
