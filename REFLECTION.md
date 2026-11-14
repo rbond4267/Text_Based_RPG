@@ -56,4 +56,9 @@ ending. O(n)
 TODO 19: I implemented optimalRun() which acts as a wrapper for bestLoot and prints the path saved and integer returned
 by bestLoot(). O(n).
 
-2.
+2. The scene dynamically allocates choices_ to size numChoices_ because the number of given choices for a scene is not 
+known until runtime. Hardcoding numChoices to exactly 3 everytime would force each scene to allocate three choices instead 
+of the actual number of choices held by a scene. An ending has nullptr choices_ because an ending doesn't have any
+valid choices and therefore ends the story.
+
+
