@@ -66,7 +66,7 @@ bool Adventure::load(const std::string& fileName) {
 
     // Read starting HP, build the first scene, and set it to the root of the tree
     std::string startHpValue;
-    if (readField(file, "Start_HP", startHpValue)) {
+    if (readField(file, "START_HP", startHpValue)) {
         startHp_ = std::stoi(startHpValue);
 
         Scene<Moment>* firstScene {readScene(file, "START")};
@@ -105,11 +105,22 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
     if (!readField(in, "CHOICES",choices)) {
         return nullptr;
     }
-
-    int numChoices = std::stoi(choices);
-    int hpVal = std::stoi(hpValue);
-    int lootVal = std::stoi(loot);
-
+    
+    int numChoices;
+    int hpVal;
+    int lootVal;
+    
+    try {
+        numChoices = std::stoi(choices);
+        hpVal = std::stoi(hpValue);
+        lootVal = std::stoi(loot); 
+    }
+    catch (const std::exception&) {
+        std::cout << "Error: invalid number in scene \""
+            << sceneName << "\".\n";
+        return nullptr;
+    }
+    
     // Print error if there are too few or too many choices
     if (numChoices < 0 || numChoices > Scene<Moment>::MAX_CHOICES) {
         std::cout << "Error: scene \"" << sceneName << "\" has " << numChoices << " choices. The limit is 3.\n";
@@ -117,7 +128,16 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
     }
 
     Moment* currentMoment {new Moment(sceneName, label , hpVal, lootVal, itemName)};
-    Scene<Moment>* currentScene {new Scene<Moment>(currentMoment, numChoices)};
+    Scene<Moment>* currentScene {nullptr};
+    
+    try {
+        currentScene = new Scene<Moment>(currentMoment, numChoices);
+        
+    }
+    catch (const std::exception&) {
+        delete currentScene;
+        return nullptr;
+    }
     
     // Check if the next scene exists, if so, recursively reads and attaches the next scene
     for (int i = 0; i < numChoices; i++) {
