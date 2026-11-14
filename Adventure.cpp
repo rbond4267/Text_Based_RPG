@@ -327,27 +327,52 @@ void Adventure::greedyRun() const {
     }
 }
 
-// TODO 18: the best total loot you can collect from scene down to an ending,
-// arriving at scene with hp health and having taken path to get here.
-//   - Return -1 if every way down from here kills you.
-//   - Put the path of the best run into bestPath.
-//   - Must be recursive and look at every choice.
+// Gets the total best loot at the best path, and saves the path. 
+// If every path ends with death, return -1.
 int Adventure::bestLoot(Scene<Moment>* scene, int hp, const std::string& path, std::string& bestPath) const {
+    if (scene == nullptr) {
+        return -1;
+    }
     
+    Moment* currentMoment = scene->getData();
     
+    hp += currentMoment->getHpChange();
+    int currentLoot {currentMoment->getLoot()};
     
-    return -1;
+    if (hp <= 0) {
+        return -1;
+    }
+    
+    if (scene->isEnding()) {
+        bestPath = path;
+        return currentLoot;
+    }
+    
+    int bestTotal {-1};
+    
+    // Iterate through the choices, summing the loot at the current scene and the recursive total of the
+    // path with the most loot.
+    for (int i = 0; i < scene->getNumChoices(); ++i) {
+        Scene<Moment>* nextScene = scene->getChoice(i);
+        std::string childPath = extendPath(path, i + 1);
+        std::string childBestPath;
+
+        int childTotal = bestLoot(nextScene, hp, childPath, childBestPath);
+
+        if (childTotal == -1)
+            continue;
+
+        int candidateTotal = currentLoot + childTotal;
+
+        if (candidateTotal > bestTotal) {
+            bestTotal = candidateTotal;
+            bestPath = childBestPath;
+        }
+    }
+    return bestTotal;
 }
 
-// TODO 19: the optimal advisor. Use bestLoot from the first scene.
-// Print:
-//   Optimal advisor
-//     Path: <path>
-//     Loot: <loot>
-//     Result: reached an ending
-// If no path survives, print only:
-//   Optimal advisor
-//     Result: no path survives this story
+// Wrapper function to call bestLoot()
 void Adventure::optimalRun() const {
     Scene<Moment>* currentScene {tree_.getRoot()};
     int hp {startHp_};
